@@ -1,10 +1,10 @@
 import { config } from "dotenv";
+import express, { Request, Response } from "express";
 import pool from "./server";
-import { Request, Response } from "express";
 
 config();
-const express = require("express");
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json()); // For parsing JSON request bodies
 
@@ -18,5 +18,4 @@ app.get("/users", async (req: Request, res: Response) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
