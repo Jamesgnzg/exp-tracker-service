@@ -1,19 +1,18 @@
-import { Pool } from "pg";
+import { Sequelize } from "sequelize";
+import { config } from "dotenv";
 
-const {
-  DATABASE_USER,
-  DATABASE_HOST,
-  DATABASE_NAME,
-  DATABSE_PASSWORD,
-  DATABASE_PORT,
-} = process.env;
+config();
+const { DATABASE_USER, DATABASE_HOST, DATABASE_NAME, DATABASE_PASSWORD } =
+  process.env;
 
-const pool = new Pool({
-  user: DATABASE_USER,
-  host: DATABASE_HOST,
-  database: DATABASE_NAME,
-  password: DATABSE_PASSWORD,
-  port: parseInt(DATABASE_PORT || "5432", 10),
+const dbUser = DATABASE_USER as string;
+const dbName = DATABASE_NAME as string;
+const dbHost = DATABASE_HOST as string;
+const dbPassword = DATABASE_PASSWORD as string;
+
+const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
+  host: dbHost,
+  dialect: "postgres",
 });
 
-export default pool;
+export default sequelize;
